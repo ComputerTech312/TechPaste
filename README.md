@@ -1,0 +1,2 @@
+# ElitePaste
+A simple Pastebin.
