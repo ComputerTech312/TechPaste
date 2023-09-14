@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Paste Created</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <label class="theme-toggle">
+            <input type="checkbox" id="theme-toggle-input" onchange="toggleTheme()">
+            <span class="slider round"></span>
+        </label>
+        <p>Paste created with ID: {{ paste_id }}</p>
+        <p>You can access it at the following URL:</p>
+        <a href="{{ paste_url }}">{{ paste_url }}</a>
+    </div>
+</body>
+</html>
