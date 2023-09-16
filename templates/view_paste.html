@@ -1,11 +1,25 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<script src="{{ url_for('static', filename='script.js') }}" defer></script>
-<div class="container">
-    <label class="theme-toggle">
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+  </head>
+  <body>
+    <header>
+      <label class="theme-toggle">
         <input type="checkbox" id="theme-toggle-input" onchange="toggleTheme()">
         <span class="slider round"></span>
-    </label>
-    <div class="content">
-        <pre>{{ content }}</pre>
-    </div>
-</div>
+      </label>
+    </header>
+    <main>
+      <div class="container">
+        <div class="content">
+          <pre>{{ content }}</pre>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <!-- Footer content goes here -->
+    </footer>
+  </body>
+</html>

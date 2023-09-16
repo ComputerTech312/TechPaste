@@ -4,29 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
     <title>ElitePaste</title>
 </head>
 <body>
-<div class="container">
-    <label class="theme-toggle">
-        <input type="checkbox" id="theme-toggle-input" onchange="toggleTheme()">
-        <span class="slider round"></span>
-    </label>
-    <form method="post">
-        Content: <br>
-        <textarea name="content" id="content-textarea" oninput="autoGrow(this)"></textarea><br><br>
-        Expiry:
-        <select name="expiry">
-            <option value="none">None</option>
-            <option value="1_minute">1 Minutes</option>
-			<option value="5_minute">5 Minutes</option>
-			<option value="10_minute">10 Minutes</option>
-            <option value="1_hour">1 Hour</option>
-			<option value="1_day">1 Day</option>
-        </select><br><br>
-        <input type="submit" value="Create Paste">
-    </form>
-</div>
+    <header>
+        <label class="theme-toggle">
+            <input type="checkbox" id="theme-toggle-input" onchange="toggleTheme()">
+            <span class="slider round"></span>
+        </label>
+    </header>
+    <main>
+        <div class="container">
+            <form method="post">
+                <label for="content-textarea">Content:</label><br>
+                <textarea name="content" id="content-textarea" oninput="autoGrow(this)"></textarea><br><br>
+                <label for="expiry-select">Expiry:</label>
+                <select name="expiry" id="expiry-select">
+                    <option value="none">None</option>
+                    <option value="1_minute">1 Minutes</option>
+                    <option value="5_minute">5 Minutes</option>
+                    <option value="10_minute">10 Minutes</option>
+                    <option value="1_hour">1 Hour</option>
+                    <option value="1_day">1 Day</option>
+                </select><br><br>
+                <input type="submit" value="Create Paste">
+            </form>
+        </div>
+    </main>
+    <footer>
+        <!-- Footer content goes here -->
+    </footer>
 </body>
 </html>
