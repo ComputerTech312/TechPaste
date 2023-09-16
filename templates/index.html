@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <script src="{{ url_for('static', filename='scripts/script.js') }}" defer></script>
+    <title>ElitePaste</title>
+</head>
+<body>
+<div class="container">
+    <label class="theme-toggle">
+        <input type="checkbox" id="theme-toggle-input" onchange="toggleTheme()">
+        <span class="slider round"></span>
+    </label>
+    <form method="post" onsubmit="encryptSubmit()">
+        Content: <br>
+        <textarea name="content" id="content-textarea" oninput="autoGrow(this)"></textarea><br><br>
+        Expiry:
+        <select name="expiry">
+            <option value="none">None</option>
+            <option value="1_minute">1 Minute</option>
+            <option value="1_hour">1 Hour</option>
+        </select><br><br>
+        <input type="submit" value="Create Paste">
+    </form>
+</div>
+</body>
+</html>
