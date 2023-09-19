@@ -5,7 +5,8 @@ function toggleTheme() {
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    const darkMode = localStorage.getItem('dark-mode') === 'true';
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const darkMode = localStorage.getItem('dark-mode') === 'true' || prefersDarkMode;
     document.body.classList.toggle('dark-mode', darkMode);
     document.getElementById('theme-toggle-input').checked = darkMode;
 
