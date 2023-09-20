@@ -25,10 +25,15 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-header {
+.header {
   background-color: #333;
   color: #fff;
   padding: 10px;
+  font-size: 32px;
+  font-weight: bold;
+  font-style: italic;
+  border: 2px solid white;
+  text-align: center;
 }
 
 .container {
