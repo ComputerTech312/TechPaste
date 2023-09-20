@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="{{ url_for('static', filename='crypto.js') }}"></script>
+    <script src="{{ url_for('static', filename='client.js') }}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+        var key = new URLSearchParams(window.location.search).get("secret"); // pull secret from URL params
+        console.log(key);
+        if (!key) {
+          document.getElementById("load-status").innerHTML = "No secret was supplied. No content will be displayed at this time.";
+          return;
+        }
+        var parts = window.location.href.split("/");
+        var paste_id = parts[parts.length-1].split("&")[0];
+        ajax_pull_paste(paste_id, key);
+      });
+    </script>
+    <style>
+      pre {
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div id="load-status">
+          Please wait while the content is being loaded...
+        </div>
+        <div id="content" class="content" hidden>
+          <!-- Placeholder. PRE to be added by the AJAX client -->
+        </div>
+      </div>
+    </main>
+    <footer>
+      <!-- Footer content goes here -->
+    </footer>
+  </body>
+</html>
