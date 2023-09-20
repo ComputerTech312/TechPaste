@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="{{ url_for('static', filename='crypto.js') }}"></script>
+    <script src="{{ url_for('static', filename='client.js') }}"></script>
     <title>ElitePaste</title>
 </head>
 <body>
     <main>
         <div class="container">
-            <form method="post">
-                <label for="content-textarea">Content:</label><br>
-                <textarea name="content" id="content-textarea" oninput="autoGrow(this)"></textarea><br><br>
-                <label for="expiry-select">Expiry:</label>
-                <select name="expiry" id="expiry-select">
-                    <option value="none">None</option>
-                    <option value="1_minute">1 Minutes</option>
-                    <option value="5_minute">5 Minutes</option>
-                    <option value="10_minute">10 Minutes</option>
-                    <option value="1_hour">1 Hour</option>
-                    <option value="1_day">1 Day</option>
-                </select><br><br>
-                <input type="submit" value="Create Paste">
-            </form>
+            <div id="paste-form">
+                <form action="javascript:void(0);">
+                    <label for="content-textarea">Content:</label><br>
+                    <textarea name="content" id="content-textarea" oninput="autoGrow(this)"></textarea><br><br>
+                    <label for="expiry-select">Expiry:</label>
+                    <select name="expiry" id="expiry-select">
+                        <option value="none">None</option>
+                        <option value="1_minute">1 Minutes</option>
+                        <option value="5_minute">5 Minutes</option>
+                        <option value="10_minute">10 Minutes</option>
+                        <option value="1_hour">1 Hour</option>
+                        <option value="1_day">1 Day</option>
+                    </select><br><br>
+                    <input id="paste-submit" type="submit" value="Create Paste" onclick="on_submit_form()">
+                </form>
+            </div>
+            <div id="paste-status" hidden></div>
         </div>
     </main>
     <footer>
