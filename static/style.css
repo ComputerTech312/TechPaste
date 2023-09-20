@@ -1,15 +1,28 @@
 /* Global styles */
+:root {
+  --background-color: #f2f2f2;
+  --text-color: #333;
+  --container-bg-color: #f2f2f2;
+  --select-color: #333;
+  --select-bg-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #333;
+    --text-color: #fff;
+    --container-bg-color: #444;
+    --select-bg-color: #333;
+    --select-color: #fff;
+  }
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background-color: #f2f2f2;
-  color: #333;
+  background-color: var(--background-color);
+  color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
-}
-
-body.dark-mode {
-  background-color: #333;
-  color: #fff;
 }
 
 header {
@@ -19,7 +32,7 @@ header {
 }
 
 .container {
-  background-color: #333;
+  background-color: var(--container-bg-color);
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -39,8 +52,8 @@ textarea {
   font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: #333;
-  background-color: #fff;
+  color: var(--select-color);
+  background-color: var(--background-color);
 }
 
 select {
@@ -48,15 +61,8 @@ select {
   margin-bottom: 10px;
   font-family: Arial, sans-serif;
   font-size: 16px;
-  color: #333;
-  background-color: #fff;
-}
-
-/* Dark mode styles */
-body.dark-mode textarea,
-body.dark-mode select {
-  color: #fff;
-  background-color: #333;
+  color: var(--select-color);
+  background-color: var(--select-bg-color);
 }
 
 input[type="submit"] {
@@ -72,85 +78,4 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #555;
-}
-
-/* Dark mode toggle styles */
-.theme-toggle {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  margin-right: 10px;
-}
-
-.theme-toggle input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-/* New rule for dark mode text color */
-body.dark-mode * {
-  color: #fff;
-}
-
-/* New rule for light mode background color */
-body:not(.dark-mode) {
-  background-color: #fff;
-}
-
-/* New rule for light mode container background color */
-body:not(.dark-mode) .container {
-  background-color: #f2f2f2;
-}
-
-/* New rule for dark mode container background color */
-body.dark-mode .container {
-  background-color: #444;
 }
