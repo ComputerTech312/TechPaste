@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Paste Created</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-  </head>
-  <body>
-    <div class="header">
-      ElitePaste
-    </div>
-    <main>
-      <div class="container">
-        <p>Paste created with ID: {{ paste_id }}</p>
-        <p>You can access it at the following URL:</p>
-        <a href="{{ paste_url }}">{{ paste_url }}</a>
-      </div>
-    </main>
-    <footer>
-      <!-- Footer content goes here -->
-    </footer>
-  </body>
-</html>
+{% extends "header.html" %}
+{% block title %}
+<title>Paste Created</title>
+{% endblock %}
+{% block crypto %}
+{% endblock %}
+{% block content %}
+<main>
+  <div class="container">
+    <p>Paste created with ID: {{ paste_id }}</p>
+    <p>You can access it at the following URL:</p>
+    <a href="{{ paste_url }}">{{ paste_url }}</a>
+  </div>
+</main>
+{% endblock %}

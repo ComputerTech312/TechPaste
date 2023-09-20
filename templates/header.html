@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block crypto %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="{{ url_for('static', filename='crypto.js') }}"></script>
+    <script src="{{ url_for('static', filename='client.js') }}"></script>
+    {% endblock %}
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    {% block extra_metadata %}
+    {% endblock %}
+    {% block title %}
+    <title>ElitePaste</title>
+    {% endblock %}
+</head>
+<body>
+    <div class="header">
+        ElitePaste
+    </div>
+    <noscript>
+      <p class="container">You don't have javascript enabled, and this site requires Javascript to create and view pastes.</p>
+    </noscript>
+    {% block content %}
+    {% endblock %}
+    <footer>
+        {% block footer %}
+        <!-- Footer content goes here -->
+        {% endblock %}
+    </footer>
+</body>
+</html>
