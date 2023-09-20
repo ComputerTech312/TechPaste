@@ -69,4 +69,4 @@ def view_paste(paste_id):
     return render_template("view_paste.html")
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8888, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=('cert.pem', 'key.pem'))
