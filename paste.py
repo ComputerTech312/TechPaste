@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, url_for
 from datetime import datetime, timedelta
+import os
 import secrets
 import string
 
@@ -69,4 +70,7 @@ def view_paste(paste_id):
     return render_template("view_paste.html")
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=('cert.pem', 'key.pem'))
+    if os.environ.get("DEBUG_NOSSL"):
+        app.run(host='0.0.0.0', port=8888, debug=True)
+    else:
+        app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=('cert.pem', 'key.pem'))
