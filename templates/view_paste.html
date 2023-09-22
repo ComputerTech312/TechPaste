@@ -8,14 +8,14 @@
     <script src="{{ url_for('static', filename='client.js') }}"></script>
     <script>
       document.addEventListener("DOMContentLoaded", (event) => {
-        var key = new URLSearchParams(window.location.search).get("secret"); // pull secret from URL params
+        var key = window.location.hash.split("#")[1];
         console.log(key);
         if (!key) {
           document.getElementById("load-status").innerHTML = "No secret was supplied. No content will be displayed at this time.";
           return;
         }
         var parts = window.location.href.split("/");
-        var paste_id = parts[parts.length-1].split("&")[0];
+        var paste_id = parts[parts.length-1].split("#")[0];
         ajax_pull_paste(paste_id, key);
       });
     </script>
@@ -27,6 +27,9 @@
     </style>
   </head>
   <body>
+    <noscript>
+      <p class="container">You don't have javascript enabled, and this site requires Javascript to create and view pastes.</p>
+    </noscript>
     <main>
       <div class="container">
         <div id="load-status">

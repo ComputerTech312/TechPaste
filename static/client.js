@@ -37,7 +37,8 @@ function ajax_submit_paste(c,e) {
             var statusDiv = document.getElementById("paste-status");
             statusDiv.innerHTML = `
                 <p>Paste created with ID: ${response.id}</p>
-                <p>You can access it <a href="/${response.id}?secret=${secret}">here</a></p>
+                <p>Paste was encrypted using secret ${secret}</p>
+                <p>You can access it <a href="/${response.id}#${secret}">here</a></p>
             `;
             statusDiv.hidden = false;
         } else {
