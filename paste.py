@@ -3,10 +3,9 @@ from datetime import datetime, timedelta
 import os
 import secrets
 import string
+import sqlite3
 
 app = Flask(__name__)
-
-pastes = {}
 
 # Function to generate a random ID of a given length
 def generate_random_id(length=16):
@@ -29,6 +28,15 @@ def parse_expiry_time(expiry_option):
         expiry_time = datetime.now() + timedelta(days=1)
     return expiry_time
 
+def init_db():
+    with sqlite3.connect('pastes.db') as conn:
+        c = conn.cursor()
+        c.execute('''CREATE TABLE IF NOT EXISTS pastes
+                     (id TEXT PRIMARY KEY, content TEXT NOT NULL, expiry TIMESTAMP NOT NULL)''')
+        conn.commit()
+
+init_db()
+
 @app.route("/api/v1/secure-paste", methods=["POST"])
 def secure_paste():
     if request.method == "POST":
@@ -37,7 +45,13 @@ def secure_paste():
             return {"success": False}, 400
         id = generate_random_id()
         expiry_time = parse_expiry_time(request.json.get("expiry", "1_day"))
-        pastes[id] = {"content": request.json["data"], "expiry": expiry_time}
+
+        with sqlite3.connect('pastes.db') as conn:
+            c = conn.cursor()
+            c.execute("INSERT INTO pastes (id, content, expiry) VALUES (?, ?, ?)", 
+                      (id, request.json["data"], expiry_time.strftime('%Y-%m-%d %H:%M:%S')))
+            conn.commit()
+        
         return {
             "success": True,
             "id": id
@@ -46,20 +60,24 @@ def secure_paste():
 @app.route("/api/v1/secure-paste/<paste_id>", methods=["GET"])
 def secure_paste2(paste_id):
     if request.method == "GET":
-        print(pastes)
         print(request.args)
-        paste_data = pastes.get(paste_id)
-        if paste_data is not None:
-            if paste_data['expiry'] is not None and datetime.now() > paste_data['expiry']:
-                del pastes[paste_id]
-                return {"success": False, "error": "Paste expired"}, 404
-            
-            content = paste_data['content']
-            return {"success": True, "data": content}        
-        else:
-            return {"success": False, "error": "Paste not found"}, 404
+        with sqlite3.connect('pastes.db') as conn:
+            c = conn.cursor()
+            c.execute("SELECT content, expiry FROM pastes WHERE id=?", (paste_id,))
+            paste_data = c.fetchone()
 
-        
+            if paste_data:
+                content, expiry = paste_data
+                expiry_datetime = datetime.strptime(expiry, '%Y-%m-%d %H:%M:%S')
+
+                if expiry_datetime and datetime.now() > expiry_datetime:
+                    c.execute("DELETE FROM pastes WHERE id=?", (paste_id,))
+                    conn.commit()
+                    return {"success": False, "error": "Paste expired"}, 404
+
+                return {"success": True, "data": content}
+            else:
+                return {"success": False, "error": "Paste not found"}, 404
 
 @app.route('/', methods=['GET'])
 def index():
