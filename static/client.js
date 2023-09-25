@@ -20,6 +20,16 @@
  *  USA
  */
 
+function escapeHtml(unsafe)
+{
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}
+
 function ajax_submit_paste(c,e) {
     /* content encryption */
     var secret = generate_secret();
@@ -62,7 +72,7 @@ function ajax_pull_paste(id, secret) {
             document.getElementById("load-status").hidden = true;
             var content = document.getElementById("content");
             content.hidden = false;
-            content.innerHTML = `<pre>${decrypted_content}</pre>`
+            content.innerHTML = `<pre>${escapeHtml(decrypted_content)}</pre>`
         } else if (xhr.status === 404) {
             document.getElementById("load-status").innerHTML = "Paste not found or has expired. Please try again later.";
         }
