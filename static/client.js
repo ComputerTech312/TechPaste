@@ -81,7 +81,6 @@ function ajax_pull_paste(id, secret) {
 }
 
 function on_submit_form() {
-    console.log("submit button clicked");
     var content = document.getElementById("content-textarea").value;
     var expiry = document.getElementById("expiry-select").value;
     ajax_submit_paste(content, expiry);

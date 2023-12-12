@@ -24,6 +24,8 @@ def parse_expiry_time(expiry_option):
         expiry_time = datetime.now() + timedelta(hours=1)
     elif expiry_option == "1_day":
         expiry_time = datetime.now() + timedelta(days=1)
+    elif expiry_option is None:
+        expiry_time = None
     else:
         expiry_time = datetime.now() + timedelta(days=1)
     return expiry_time
@@ -88,7 +90,7 @@ def view_paste(paste_id):
     return render_template("view_paste.html")
 
 if __name__ == '__main__':
-    if os.environ.get("DEBUG_NOSSL"):
+#    if os.environ.get("DEBUG_NOSSL"):
         app.run(host='0.0.0.0', port=8888, debug=True)
-    else:
-        app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=('cert.pem', 'key.pem'))
+    #else:
+     #   app.run(host='0.0.0.0', port=5000, debug=True, ssl_context=('cert.pem', 'key.pem'))
