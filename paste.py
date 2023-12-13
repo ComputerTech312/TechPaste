@@ -1,13 +1,12 @@
 from flask import Flask, request, render_template, url_for
 from datetime import datetime, timedelta
-import os
+import sys
 import secrets
 import string
 import sqlite3
 
 app = Flask(__name__)
 
-# Function to generate a random ID of a given length
 def generate_random_id(length=16):
     characters = string.ascii_letters + string.digits
     return ''.join(secrets.choice(characters) for _ in range(length))
@@ -45,6 +44,8 @@ def secure_paste():
         if not "data" in request.json:
             print("no data key")
             return {"success": False}, 400
+        if sys.getsizeof(request.json["data"].encode('utf-8')) > 10485760:  # Limit paste size to 10MB in bytes
+            return {"success": False, "error": "Paste too large"}, 400
         id = generate_random_id()
         expiry_time = parse_expiry_time(request.json.get("expiry", "1_day"))
 

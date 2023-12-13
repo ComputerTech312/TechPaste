@@ -51,6 +51,13 @@ function ajax_submit_paste(c,e) {
                 <p>You can access it <a href="/${response.id}#${secret}">here</a></p>
             `;
             statusDiv.hidden = false;
+        } else if (xhr.status === 400) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.error === "Paste too large") {
+                alert("Error: Paste is too large. Please reduce the size and try again.");
+            } else {
+                alert("Error submitting paste. Please check your connection and try again");
+            }
         } else {
             alert("Error submitting paste. Please check your connection and try again");
         }
