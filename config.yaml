@@ -1,0 +1,9 @@
+database:
+  name: 'pastes.db'
+server:
+  host: '0.0.0.0'
+  port: 8888
+  debug: True
+paste:
+  default_expiry: '1_day'
+  max_size: 10485760
