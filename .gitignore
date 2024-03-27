@@ -2,3 +2,4 @@ nohup.out
 cert.pem
 key.pem
 pastes.db
+venv

@@ -1,25 +1,3 @@
-/*
- *  client.js: facilitates connection between frontend and RESTful backend
- *             services via AJAX
- *
- *  Copyright (C) 2023 David Schultz <me@zpld.me>
- *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307
- *  USA
- */
-
 function escapeHtml(unsafe)
 {
     return unsafe
@@ -76,10 +54,16 @@ function ajax_pull_paste(id, secret) {
             /* content decryption and display */
             var decrypted_content = decrypt_paste(secret, response.data);
 
+            // Split the decrypted content into lines and wrap each line in a <div> tag
+            var lines = decrypted_content.split('\n');
+            var formatted = lines.map(function(line) {
+                return '<div>' + escapeHtml(line) + '</div>';
+            }).join('');
+
             document.getElementById("load-status").hidden = true;
             var content = document.getElementById("content");
             content.hidden = false;
-            content.innerHTML = `<pre>${escapeHtml(decrypted_content)}</pre>`
+            content.innerHTML = formatted; // Set the innerHTML to the formatted content
         } else if (xhr.status === 404) {
             document.getElementById("load-status").innerHTML = "Paste not found or has expired. Please try again later.";
         }

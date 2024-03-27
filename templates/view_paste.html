@@ -6,25 +6,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="{{ url_for('static', filename='crypto.js') }}"></script>
     <script src="{{ url_for('static', filename='client.js') }}"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", (event) => {
-        var key = window.location.hash.split("#")[1];
-        console.log(key);
-        if (!key) {
-          document.getElementById("load-status").innerHTML = "No secret was supplied. No content will be displayed at this time.";
-          return;
-        }
-        var parts = window.location.href.split("/");
-        var paste_id = parts[parts.length-1].split("#")[0];
-        ajax_pull_paste(paste_id, key);
-      });
-    </script>
-    <style>
-      pre {
-        white-space: pre-wrap;
-        overflow-wrap: break-word;
-      }
-    </style>
   </head>
   <body>
     <noscript>
@@ -35,9 +16,9 @@
         <div id="load-status">
           Please wait while the content is being loaded...
         </div>
-        <div id="content" class="content" hidden>
-          <!-- Placeholder. PRE to be added by the AJAX client -->
-        </div>
+        <pre id="content" class="content line-number" hidden>
+          <!-- Placeholder. DIVs to be added by the AJAX client -->
+        </pre>
       </div>
     </main>
     <footer>
