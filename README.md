@@ -1,2 +1,2 @@
-# ElitePaste
+# ZaPaste
 A simple Pastebin.
