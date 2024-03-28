@@ -1,2 +1,2 @@
-# SecretPaste
+# TechPaste
 A simple Pastebin.
