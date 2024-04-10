@@ -4,6 +4,7 @@ import string
 import sys
 import yaml
 from datetime import datetime, timedelta
+from cryptography.fernet import Fernet
 
 from flask import Flask, request, render_template
 
@@ -37,7 +38,10 @@ class Paste:
             return ''.join(secrets.choice(characters) for _ in range(length))
         except Exception as e:
             print(f"Error generating random id: {str(e)}")
-            raise
+
+    @staticmethod
+    def generate_secret_key():
+        return Fernet.generate_key().decode()
 
     @staticmethod
     def parse_expiry_time(expiry_option):
@@ -76,6 +80,15 @@ class Paste:
         finally:
             if conn:
                 conn.close()
+
+
+@app.route('/api/v1/generate_secret', methods=['GET'])
+def generate_secret():
+    try:
+        secret_key = Paste.generate_secret_key()
+        return {'success': True, 'secret_key': secret_key}
+    except Exception as e:
+        return {'success': False, 'error': 'Error generating secret key: ' + str(e)}, 500
 
 
 class PasteAPI:
